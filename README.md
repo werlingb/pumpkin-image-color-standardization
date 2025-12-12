@@ -115,30 +115,30 @@ Median values and central patch regions from cards are used to reduce noise and 
 
 **4. Repository contents**
 ***4.1 Core scripts***
---------------
+
 create_reference_npz_fixed_window_v3.py
 Creates a reference color profile from a photographed color checker.
---------------
+
 batch_color_correct_v13c.py
 Applies rotation-robust color correction to image folders using the reference profile.
---------------
+
 extract_pumpkin_colors_v6_flex_poly_or_full.py
 Extracts median Lab color values from pumpkins (full image or polygon-based).
---------------
+
 pumpkin_color_analysis_final.py
 Summarizes and analyzes variety-level color differences using PCA and clustering.
---------------
+
 
 ***4.2 Helper scripts***
---------------
+
 These scripts are not required for reproducibility but aid visualization:
---------------
+
 create_color_swatches_from_csv.py — creates labeled color swatches
---------------
+
 resize_pairs_by_object_png.py — resizes images for visual comparison
---------------
+
 luminance_match_to_original.py — optional brightness matching
---------------
+
 
 **5. File placement and launch options**
 ***5.1 Recommended folder structure***
