@@ -5,34 +5,32 @@ Python scripts to standardize color in pumpkin images using a photographed color
 While these scripts standardize image processing steps, users are responsible for ensuring appropriate image collection, evaluating data quality, and interpreting results within the context of their experimental design.
 
 **Table of Contents**
+## Table of Contents
 
 1. Overview
-
 2. Why use this workflow
-
 3. Color checker and color model
- 3.1 Color checker requirements
- 3.2 Patch order and compatibility
- 3.3 Color space and correction method
-
+   1. Color checker requirements
+   2. Patch order and compatibility
+   3. Color space and correction method
 4. Repository contents
- 4.1 Core scripts
- 4.2 Helper scripts
-
+   1. Core scripts
+   2. Helper scripts
 5. File placement and launch options
- 5.1 Recommended folder structure
- 5.2 Windows .bat launchers
-
+   1. Recommended folder structure
+   2. Windows `.bat` launchers
 6. Step-by-step: running the core workflow
- 6.1 Creating a reference color profile
- 6.2 Taking a good reference photo
- 6.3 Applying color correction (when needed)
- 6.4 Extracting pumpkin color values
- 6.5 Analyzing and summarizing color differences
-
+   1. Creating a reference color profile
+   2. Taking a good reference photo
+   3. Applying color correction (when needed)
+   4. Extracting pumpkin color values
+   5. Analyzing and summarizing color differences
 7. Intended use and limitations
-
 8. Code availability
+9. Software and system requirements
+   1. Software requirements
+   2. Adding Python to PATH
+   3. Required Python packages
 
 **1.  Overview**
 
@@ -234,3 +232,59 @@ Designed for controlled photography with a visible color checker
 Best suited for relative comparisons among varieties
 
 Not intended for absolute color calibration or uncontrolled field imagery
+
+**9. Software and system requirements**
+***9.1 Software requirements***
+
+-Python 3.9 or newer
+-Python must be available on the system path (i.e., `python` runs from a command prompt)
+-Adding Python to your system PATH (Windows)
+For the provided `.bat` launchers to work, Python must be available on your system PATH
+(i.e., the command `python` runs from a command prompt).
+
+***9.2 Adding Python to PATH***
+A) Option 1 — During Python installation (recommended)
+1. Download Python from https://www.python.org
+2. Run the installer
+3. On the **first screen**, check the box:
+   **“Add Python to PATH”**
+4. Click **Install Now**
+5. Restart your computer after installation
+
+This is the simplest and most reliable approach.
+
+B) Option 2 — Verify that Python is on PATH
+1. Open **Command Prompt**
+2. Type: python --version
+
+3. If a version number appears, Python is already on PATH and no action is needed.
+
+If you see an error such as *“python is not recognized as an internal or external command”*,
+Python is not yet on PATH.
+
+C) Option 3 — Manually add Python to PATH (advanced)
+If Python is installed but not on PATH:
+1. Open **Start → Settings → System → About**
+2. Click **Advanced system settings**
+3. Click **Environment Variables**
+4. Under **System variables**, select **Path** → **Edit**
+5. Add the folder containing `python.exe`  
+(commonly something like `C:\Users\YourName\AppData\Local\Programs\Python\Python39\`)
+6. Click **OK** to save and restart your computer
+
+After this, `python --version` should work from a command prompt.
+
+***9.3 Required Python packages***
+The core scripts rely on commonly used scientific Python packages, including:
+- `numpy`
+- `pandas`
+- `opencv-python` (cv2)
+- `matplotlib`
+- `scikit-learn`
+
+Most scripts will attempt to install missing packages automatically when run.
+
+### Notes
+- No prior experience with Git or the command line is required when using the provided `.bat` launchers.
+- Users running the scripts outside Windows may need to install dependencies manually using `pip`.
+
