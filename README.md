@@ -4,15 +4,13 @@ Python scripts to standardize color in pumpkin images using a photographed color
 
 While these scripts standardize image processing steps, users are responsible for ensuring appropriate image collection, evaluating data quality, and interpreting results within the context of their experimental design.
 
-**Table of Contents**
 ## Table of Contents
 
 1. Overview
 2. Why use this workflow
 3. Color checker and color model
    1. Color checker requirements
-   2. Patch order and compatibility
-   3. Color space and correction method
+   2. Color space and correction method
 4. Repository contents
    1. Core scripts
    2. Helper scripts
@@ -38,6 +36,7 @@ This repository contains Python scripts developed to help researchers make fair,
 among pumpkin varieties using digital photographs.
 
 Color in images often varies due to lighting, camera settings, and shooting conditions.
+
 These scripts allow users to:
 
 -standardize color across images using a photographed color checker,
@@ -74,40 +73,40 @@ What does not matter:
 
 -Exact physical size (it does not need to be 4 × 6 inches)
 
+-Rotation of the card in the image relative to pumpkins (script auto detects this)
+
 -Brand name (Pixiss, X-Rite–style, or similar are acceptable)
 
 Mixing different color checker brands within a dataset is not recommended.
 
-***3.2 Patch order and compatibility***
-
-The scripts assume:
-
--Each patch has a fixed position relative to the others
-
--Rotating or mirroring the card does not change internal patch order
-
 Cards with irregular layouts, nonstandard patch ordering, or mixed patch sizes may not
 be compatible without modifying the scripts.
 
-Rule of thumb:
-If your card looks like a “standard 24-patch color checker,” it will almost certainly work.
+Rule of thumb: If your card looks like a “standard 24-patch color checker,” it will likely work.
 
 ***3.3 Color space and correction method***
 
 All color calculations are performed in CIELAB (L*a*b*) color space. CIELAB (L*a*b*) color space is a perceptually based color model designed so that numerical differences correspond more closely to how humans perceive color differences. L* represents lightness, a* represents the green–red axis, and b* represents the blue–yellow axis. Separating lightness from color makes CIELAB well suited for quantitative color comparison and analysis. In this workflow, Lab values are computed using OpenCV’s implementation, which follows the CIELAB color model but uses an 8-bit scaled representation. Using OpenCV’s scaled Lab representation simplifies image processing, avoids negative values, and allows consistent, efficient comparison of color differences across large image sets. Because OpenCV uses a scaled representation of CIELAB rather than true CIE units, this workflow is intended for relative color comparison among samples; it may be less appropriate for applications requiring absolute colorimetric calibration or direct comparison to published CIE L*a*b* values.
 
 CIELAB is used because:
+
 -it separates lightness (L*) from color (a*, b*)
+
 -differences correspond more closely to human perception
 
 Conceptually, color correction works as follows:
+
 -Known colors are sampled from the photographed color checker card placed in the picture along with the pumpkins
+
 -These values are compared to a reference image taken in even lighting
+
 -A linear least-squares correction is calculated to map colors in the pumpkin image to the reference image
 
 The correction is applied to the entire image. 
 
 Median values and central patch regions from cards are used to reduce noise and glare effects.
+
+Strange results in output images may result from improper detection of the color checker card, or from uneven lighting across the width, height and depth of the image.
 
 **4. Repository contents**
 
@@ -128,9 +127,9 @@ These scripts are not required for reproducibility but aid visualization:
 
 create_color_swatches_from_csv.py — creates labeled color swatches
 
-resize_pairs_by_object_png.py — resizes images for visual comparison
+resize_pairs_by_object_png.py — resizes pairs of images to common size based on a reference object (e.g., a ruler) in both images
 
-luminance_match_to_original.py — optional brightness matching
+luminance_match_to_original.py — optional brightness matching, helpful if color correction results in images that are too bright or too dark, retains color correction but adjusts brightness to the original
 
 
 **5. File placement and launch options**
@@ -153,8 +152,7 @@ Scripts use file-selection dialogs; paths do not need to be hard-coded.
 
 Batch files, which end with the extension .bat, allow scripts to be run by double-clicking, instead of through a console.
 
-Placement:
-Each .bat file should be placed in the same folder as its corresponding .py script. 
+Placement: Each .bat file should be placed in the same folder as its corresponding .py script. 
 
 
 **6. Step-by-step: running the core workflow**
@@ -177,11 +175,17 @@ Outputs:
 ***6.2 Taking a good reference photo***
 
 A good reference photo should have:
+
 -the entire color checker visible
+
 -flat placement (not warped)
+
 -even, diffuse lighting
+
 -minimal glare and no hard shadows
+
 -sufficient resolution to clearly resolve patches
+
 -Diffuse light (overcast daylight, shade, or diffused indoor lighting) is strongly recommended.
 
 After creating the reference, review the _grid_preview.png file to confirm
@@ -240,6 +244,8 @@ Designed for controlled photography with a visible color checker
 Best suited for relative comparisons among varieties
 
 Not intended for absolute color calibration or uncontrolled field imagery
+
+For consistent results photos should be taken with HDR/Scene Optimizer, etc, turned off
 
 **9. Software and system requirements**
 
